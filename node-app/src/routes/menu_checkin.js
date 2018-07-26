@@ -3,7 +3,6 @@ export default {
         {
             "text": "Choose the option that best suits your situation",
             "fallback": "lets try again?",
-            "callback_id": "checkin_response",
             "color": "#3AA3E3",
             "attachment_type": "default",
             "actions": [

@@ -52,6 +52,7 @@ app.route('/interaction/:userName/:callbackUrl').post(
     const userName = req.params.userName;
     const messageText = "Have you had a chance to meet with your mentor since we last checked in?";
     const att = checkinResponse;
+    att.callback_id = callbackUrl;
     bot.postMessageToUser(userName, messageText, att).then(function(response) {
       console.log(util.inspect(response));
       appState.dispatch({
