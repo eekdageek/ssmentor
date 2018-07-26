@@ -33,7 +33,7 @@ app.post('/respond', urlencodedParser,
         "text": actionJSONPayload.user.name+" clicked: "+actionJSONPayload.actions[0].name,
         "replace_original": false
     }
-    bot.postMessageToUser(userName, message.text).then(function(response) {
+    bot.postMessageToUser(actionJSONPayload.user.name, message.text).then(function(response) {
       res.status(200).end();
     })
   }
