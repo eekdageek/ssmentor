@@ -1,7 +1,8 @@
-var express = require('express');
+const express = require('express');
 const Slackbot = require('slackbots');
 const fetch = require('node-fetch');
 const util = require('util');
+const bodyParser = require('body-parser');
 
 import { createStore } from 'redux';
 import stateReducer from './state/reducer';
@@ -11,6 +12,7 @@ import checkinResponse from './routes/menu_checkin';
 // Create Express App
 const app = express();
 const appState = createStore(stateReducer);
+const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 appState.subscribe(() =>
   console.log('** Store Update ** \n', JSON.stringify(appState.getState(), null, '\t'))
@@ -22,11 +24,18 @@ var bot = new Slackbot({
   name: "Mentorship Team"
 });
 
-// on /respond/:checkin
-app.route('/respond').post(
+// on /respond
+app.post('/respond', urlencodedParser, 
   (req, res) => {
-    console.log(util.inspect(req));
-    res.send('Thank you! Your response has been recorded.');
+    const actionJSONPayload = JSON.parse(req.body.payload) // parse URL-encoded payload JSON string
+    console.log(util.inspect(actionJSONPayload));
+    const message = {
+        "text": actionJSONPayload.user.name+" clicked: "+actionJSONPayload.actions[0].name,
+        "replace_original": false
+    }
+    bot.postMessageToUser(userName, message.text).then(function(response) {
+      res.status(200).end();
+    })
   }
 );
 
