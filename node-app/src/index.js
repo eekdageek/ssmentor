@@ -33,6 +33,7 @@ app.post('/respond', urlencodedParser,
       type: ActionTypes.INTERACTION_RESPONDED,
       payload: {
         userName: actionJSONPayload.user.name,
+        callbackUrl: actionJSONPayload.callback_id,
         slackResponse: actionJSONPayload.actions[0]
       }
     });
