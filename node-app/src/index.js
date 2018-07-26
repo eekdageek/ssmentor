@@ -57,7 +57,7 @@ app.route('/interaction/:userName/:callbackUrl').post(
     const att = checkinResponse;
     att.callback_id = req.params.callbackUrl;
     bot.postMessageToUser(userName, messageText, att).then(function(response) {
-      console.log(util.inspect(response));
+      console.log('Response: ',util.inspect(response));
       appState.dispatch({
         type: ActionTypes.ACTION_INTERACTION_INITIATED,
         payload: {
