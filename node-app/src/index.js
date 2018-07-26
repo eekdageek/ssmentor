@@ -24,7 +24,8 @@ var bot = new Slackbot({
 // on /respond/:checkin
 app.route('/respond').post(
   (req, res) => {
-    console.log(req);
+    var actionJSONPayload = JSON.parse(req.body.payload) 
+    console.log(actionJSONPayload);
     res.send('Thank you! Your response has been recorded.');
   }
 );
