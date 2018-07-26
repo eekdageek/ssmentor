@@ -1,6 +1,8 @@
-var express = require('express');
+const express = require('express');
 const Slackbot = require('slackbots');
 const fetch = require('node-fetch');
+const util = require('util');
+const bodyParser = require('body-parser');
 
 import { createStore } from 'redux';
 import stateReducer from './state/reducer';
@@ -10,6 +12,7 @@ import checkinResponse from './routes/menu_checkin';
 // Create Express App
 const app = express();
 const appState = createStore(stateReducer);
+const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 appState.subscribe(() =>
   console.log('** Store Update ** \n', JSON.stringify(appState.getState(), null, '\t'))
@@ -21,18 +24,24 @@ var bot = new Slackbot({
   name: "Mentorship Team"
 });
 
-// on /respond/:checkin
-app.route('/respond').post(
+// on /respond
+app.post('/respond', urlencodedParser, 
   (req, res) => {
-    console.log(req);
-    res.send('OK!');
+    const actionJSONPayload = JSON.parse(req.body.payload) // parse URL-encoded payload JSON string
+    console.log(util.inspect(actionJSONPayload));
+    const message = {
+        "text": actionJSONPayload.user.name+" clicked: "+actionJSONPayload.actions[0].name,
+        "replace_original": false
+    }
+    bot.postMessageToUser(actionJSONPayload.user.name, message.text).then(function(response) {
+      res.status(200).end();
+    })
   }
 );
 
 // on /interaction/:username/:callbackUrl
 app.route('/interaction/:userName/:interactionId/:callbackUrl').post(
   (req, res) => {
-    console.log("*** Request params \n", req.params);
     const userName = req.params.userName;
     const interactionId = req.params.interactionId;
     appState.dispatch({
@@ -44,11 +53,9 @@ app.route('/interaction/:userName/:interactionId/:callbackUrl').post(
       }
     });
     const messageText = "Have you had a chance to meet with your mentor since we last checked in?";
-    
     const att = checkinResponse;
     bot.postMessageToUser(userName, messageText, att).then(function(response) {
-      console.log('Sent message to user!');
-      res.send('OK!');
+      res.send('Thank you for your response!');
     }).catch(function(ex) {
       console.log(ex.message);  
       res.send('Error: ', ex.message);
@@ -60,7 +67,6 @@ bot.on('message', function(msgObject) {
   switch (msgObject.type) {
     case "message": {
       bot.getUserById(msgObject.user);
-      
       break;
     }
     case "checkin_response":
@@ -79,4 +85,3 @@ bot.on('im_open', function(msgObject) {
 
 const port = 8526;
 app.listen(port);
-console.log('Try: curl -X POST -H "Content-Type: application/x-www-form-urlencoded" http://localhost:8526/');
