@@ -60,8 +60,8 @@ app.route('/interaction/:userName/:callbackUrl').post(
         callbackUrl: req.params.callbackUrl
       }
     });
-    const messageText2 = "here is your survey";
-    const att2 = surveyResponse;
+   // const messageText2 = "here is your survey";
+   // const att2 = surveyResponse;
     
     const messageText = "Have you had a chance to meet with your mentor since we last checked in?";
     const att = checkinResponse;
