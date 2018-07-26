@@ -50,7 +50,7 @@ app.post('/respond', urlencodedParser,
 // on /interaction/:username/:callbackUrl
 app.route('/interaction/:userName/:callbackUrl').post(
   (req, res) => {
-    console.log("+ Parans supplied: ", utils.inspect(req.params));
+    console.log("+ Parans supplied: ", util.inspect(req.params));
     const userName = req.params.userName;
     const callbackUrl = req.params.callbackUrl;
     const messageText = "Have you had a chance to meet with your mentor since we last checked in?";
