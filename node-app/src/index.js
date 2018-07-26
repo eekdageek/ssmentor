@@ -66,7 +66,7 @@ app.route('/interaction/:userName/:callbackUrl').post(
           callbackUrl
         }
       });
-      res.status(200);
+      res.status(200).end();
     }).catch(function(ex) {
       console.log(ex.message);  
       res.send('Error: ', ex.message);
