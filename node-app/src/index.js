@@ -1,12 +1,12 @@
 var express = require('express');
 const Slackbot = require('slackbots');
 const fetch = require('node-fetch');
+const util = require('util');
 
 import { createStore } from 'redux';
 import stateReducer from './state/reducer';
 import * as ActionTypes from './state/actions';
 import checkinResponse from './routes/menu_checkin';
-import { inspect } from 'util';
 
 // Create Express App
 const app = express();
