@@ -25,14 +25,13 @@ var bot = new Slackbot({
 app.route('/respond').post(
   (req, res) => {
     console.log(req);
-    res.send('OK!');
+    res.send('Thank you! Your response has been recorded.');
   }
 );
 
 // on /interaction/:username/:callbackUrl
 app.route('/interaction/:userName/:interactionId/:callbackUrl').post(
   (req, res) => {
-    console.log("*** Request params \n", req.params);
     const userName = req.params.userName;
     const interactionId = req.params.interactionId;
     appState.dispatch({
@@ -44,11 +43,9 @@ app.route('/interaction/:userName/:interactionId/:callbackUrl').post(
       }
     });
     const messageText = "Have you had a chance to meet with your mentor since we last checked in?";
-    
     const att = checkinResponse;
     bot.postMessageToUser(userName, messageText, att).then(function(response) {
-      console.log('Sent message to user!');
-      res.send('OK!');
+      res.send('Thank you for your response!');
     }).catch(function(ex) {
       console.log(ex.message);  
       res.send('Error: ', ex.message);
@@ -60,7 +57,6 @@ bot.on('message', function(msgObject) {
   switch (msgObject.type) {
     case "message": {
       bot.getUserById(msgObject.user);
-      
       break;
     }
     case "checkin_response":
@@ -79,4 +75,3 @@ bot.on('im_open', function(msgObject) {
 
 const port = 8526;
 app.listen(port);
-console.log('Try: curl -X POST -H "Content-Type: application/x-www-form-urlencoded" http://localhost:8526/');

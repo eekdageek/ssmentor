@@ -21,13 +21,13 @@ export default {
                 },
                 {
                     "name": "checkin_response",
-                    "text": "Nope",
+                    "text": "Nothing scheduled",
                     "style": "danger",
                     "type": "button",
                     "value": "none_planned",
                     "confirm": {
                         "title": "Are you sure?",
-                        "text": "Wouldn't you prefer a good game of chess?",
+                        "text": "Wouldn't you like to schedule one?",
                         "ok_text": "Yes",
                         "dismiss_text": "No"
                     }
