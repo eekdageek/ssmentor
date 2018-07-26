@@ -8,7 +8,7 @@ import { createStore } from 'redux';
 import stateReducer from './state/reducer';
 import * as ActionTypes from './state/actions';
 import checkinResponse from './routes/menu_checkin';
-
+import surveyResponse from './routes/menu_survey';
 // Create Express App
 const app = express();
 const appState = createStore(stateReducer);
@@ -51,6 +51,21 @@ app.post('/respond', urlencodedParser,
 app.route('/interaction/:userName/:callbackUrl').post(
   (req, res) => {
     const userName = req.params.userName;
+<<<<<<< HEAD
+    const interactionId = req.params.interactionId;
+    appState.dispatch({
+      type: ActionTypes.ACTION_INTERACTION_INITIATED,
+      payload: {
+        userName,
+        interactionId,
+        callbackUrl: req.params.callbackUrl
+      }
+    });
+    const messageText2 = "here is your survey";
+    const att2 = surveyResponse;
+    
+=======
+>>>>>>> ab8041f2fd5eaa04d9d7225d71ff671955a3ec7a
     const messageText = "Have you had a chance to meet with your mentor since we last checked in?";
     const att = checkinResponse;
     att.callback_id = callbackUrl;
