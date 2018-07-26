@@ -51,7 +51,7 @@ app.post('/respond', urlencodedParser,
 app.route('/interaction/:userName/:callbackUrl').post(
   (req, res) => {
     const userName = req.params.userName;
-    const ≈ = req.params.interactionId;
+    const = req.params.interactionId;
     appState.dispatch({
       type: ActionTypes.ACTION_INTERACTION_INITIATED,
       payload: {
