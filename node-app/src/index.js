@@ -51,7 +51,7 @@ app.post('/respond', urlencodedParser,
 app.route('/interaction/:userName/:callbackUrl').post(
   (req, res) => {
     const userName = req.params.userName;
-    const interactionId = req.params.interactionId;
+    const ≈ = req.params.interactionId;
     appState.dispatch({
       type: ActionTypes.ACTION_INTERACTION_INITIATED,
       payload: {
@@ -65,7 +65,7 @@ app.route('/interaction/:userName/:callbackUrl').post(
     
     const messageText = "Have you had a chance to meet with your mentor since we last checked in?";
     const att = checkinResponse;
-    att.callback_id = callbackUrl;
+    att.callback_id = req.params.callbackUrl;
     bot.postMessageToUser(userName, messageText, att).then(function(response) {
       console.log(util.inspect(response));
       appState.dispatch({
