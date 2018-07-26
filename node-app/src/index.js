@@ -51,17 +51,7 @@ app.post('/respond', urlencodedParser,
 app.route('/interaction/:userName/:callbackUrl').post(
   (req, res) => {
     const userName = req.params.userName;
-    const = req.params.interactionId;
-    appState.dispatch({
-      type: ActionTypes.ACTION_INTERACTION_INITIATED,
-      payload: {
-        userName,
-        interactionId,
-        callbackUrl: req.params.callbackUrl
-      }
-    });
-   // const messageText2 = "here is your survey";
-   // const att2 = surveyResponse;
+    const callbackUrl = req.params.callbackUrl;
     
     const messageText = "Have you had a chance to meet with your mentor since we last checked in?";
     const att = checkinResponse;
@@ -72,7 +62,7 @@ app.route('/interaction/:userName/:callbackUrl').post(
         type: ActionTypes.ACTION_INTERACTION_INITIATED,
         payload: {
           userName,
-          callbackUrl: req.params.callbackUrl
+          callbackUrl
         }
       });
     }).catch(function(ex) {
