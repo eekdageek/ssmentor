@@ -1,7 +1,9 @@
 export default {
+	"text": "I am aware of opportunities relating to... ",
+	"response_type": "in_channel",
     "attachments": [
         {
-            "text": "I am aware of opportunities relating to... ",
+			"text": "Hello",
             "fallback": "lets try again?",
             "callback_id": "survey_opportunities_response",
             "color": "#3AA3E3",
@@ -11,31 +13,33 @@ export default {
             		"name": "field_specific",
             		"text": "Developing field-specific skills",
             		"type": "select",
-            		
-                	{
-                 	   "text": "Strongly Agree",
-                    	"value": "Strongly Agree"
-                	},
-                	{
-                    	"text": "Agree",
-                    	"value": "Agree"
-                	},
-                   {
-                    	"text": "Neutral",
-            	        "value": "Neutral"
-                	},
-                	{
-                    	"text": "Disagree",
-                    	"value": "Disagree"
-                	},
-                	{
-                   	 "text": "Strongly Disgree",
-                   	 "value": "Strongly Disagree"
-                	},
-                	{
-                   	 "text": "N/A",
-                   	 "value": "N/A"
-                	}
+            		"options": [
+                		{
+                 	   		"text": "Strongly Agree",
+                    		"value": "Strongly Agree"
+                		},
+                		{
+                    		"text": "Agree",
+                    		"value": "Agree"
+                		},
+                   		{
+                    		"text": "Neutral",
+            	       	 "value": "Neutral"
+                		},
+                		{
+                    		"text": "Disagree",
+                    		"value": "Disagree"
+                		},
+                		{
+                   	 		"text": "Strongly Disgree",
+                   	 		"value": "Strongly Disagree"
+                		},
+                		{
+                   		 	"text": "N/A",
+                   		 	"value": "N/A"
+                		}
+                	]
+                }
             ]
         }
     ]

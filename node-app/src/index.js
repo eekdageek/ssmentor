@@ -8,7 +8,7 @@ import { createStore } from 'redux';
 import stateReducer from './state/reducer';
 import * as ActionTypes from './state/actions';
 import checkinResponse from './routes/menu_checkin';
-
+import surveyResponse from './routes/menu_survey';
 // Create Express App
 const app = express();
 const appState = createStore(stateReducer);
@@ -52,6 +52,9 @@ app.route('/interaction/:userName/:interactionId/:callbackUrl').post(
         callbackUrl: req.params.callbackUrl
       }
     });
+    const messageText2 = "here is your survey";
+    const att2 = surveyResponse;
+    
     const messageText = "Have you had a chance to meet with your mentor since we last checked in?";
     const att = checkinResponse;
     bot.postMessageToUser(userName, messageText, att).then(function(response) {
