@@ -8,19 +8,19 @@ export default {
             "attachment_type": "default",
             "actions": [
                 {
-                    "name": "checkin_response",
+                    "name": "q1",
                     "text": "I already have",
                     "type": "button",
                     "value": "complete"
                 },
                 {
-                    "name": "checkin_response",
+                    "name": "q1",
                     "text": "I have one scheduled",
                     "type": "button",
                     "value": "scheduled"
                 },
                 {
-                    "name": "checkin_response",
+                    "name": "q1",
                     "text": "Nothing scheduled",
                     "style": "danger",
                     "type": "button",

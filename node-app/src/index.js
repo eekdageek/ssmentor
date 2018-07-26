@@ -29,8 +29,15 @@ app.post('/respond', urlencodedParser,
   (req, res) => {
     const actionJSONPayload = JSON.parse(req.body.payload) // parse URL-encoded payload JSON string
     console.log(util.inspect(actionJSONPayload));
+    appState.dispatch({
+      type: ActionTypes.INTERACTION_RESPONDED,
+      payload: {
+        userName: actionJSONPayload.user.name,
+        slackResponse: actionJSONPayload.actions[0]
+      }
+    });
     const message = {
-        "text": actionJSONPayload.user.name+" clicked: "+actionJSONPayload.actions[0].name,
+        "text": "Your response has been recorded",
         "replace_original": false
     }
     bot.postMessageToUser(actionJSONPayload.user.name, message.text).then(function(response) {
@@ -40,22 +47,20 @@ app.post('/respond', urlencodedParser,
 );
 
 // on /interaction/:username/:callbackUrl
-app.route('/interaction/:userName/:interactionId/:callbackUrl').post(
+app.route('/interaction/:userName/:callbackUrl').post(
   (req, res) => {
     const userName = req.params.userName;
-    const interactionId = req.params.interactionId;
-    appState.dispatch({
-      type: ActionTypes.ACTION_INTERACTION_INITIATED,
-      payload: {
-        userName,
-        interactionId,
-        callbackUrl: req.params.callbackUrl
-      }
-    });
     const messageText = "Have you had a chance to meet with your mentor since we last checked in?";
     const att = checkinResponse;
     bot.postMessageToUser(userName, messageText, att).then(function(response) {
-      res.send('Thank you for your response!');
+      console.log(util.inspect(response));
+      appState.dispatch({
+        type: ActionTypes.ACTION_INTERACTION_INITIATED,
+        payload: {
+          userName,
+          callbackUrl: req.params.callbackUrl
+        }
+      });
     }).catch(function(ex) {
       console.log(ex.message);  
       res.send('Error: ', ex.message);
