@@ -38,6 +38,7 @@ export default {
                    		 	"text": "N/A",
                    		 	"value": "N/A"
                 		}
+                	
                 	]
                 }
             ]
