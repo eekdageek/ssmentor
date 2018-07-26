@@ -56,7 +56,7 @@ app.route('/interaction/:userName/:callbackUrl').post(
     const messageText = "Have you had a chance to meet with your mentor since we last checked in?";
     const options = checkinResponse;
     options.attachments.callback_id = req.params.callbackUrl;
-    console.log(util.inspect(att));
+    console.log(util.inspect(options));
     bot.postMessageToUser(userName, messageText, options).then(function(response) {
       console.log('Response: ',util.inspect(response));
       appState.dispatch({
@@ -66,6 +66,7 @@ app.route('/interaction/:userName/:callbackUrl').post(
           callbackUrl
         }
       });
+      res.status(200);
     }).catch(function(ex) {
       console.log(ex.message);  
       res.send('Error: ', ex.message);
