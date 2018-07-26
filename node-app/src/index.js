@@ -6,6 +6,7 @@ import { createStore } from 'redux';
 import stateReducer from './state/reducer';
 import * as ActionTypes from './state/actions';
 import checkinResponse from './routes/menu_checkin';
+import { inspect } from 'util';
 
 // Create Express App
 const app = express();
@@ -24,8 +25,7 @@ var bot = new Slackbot({
 // on /respond/:checkin
 app.route('/respond').post(
   (req, res) => {
-    var actionJSONPayload = JSON.stringify(req, null, '\t');
-    console.log(actionJSONPayload);
+    console.log(util.inspect(req));
     res.send('Thank you! Your response has been recorded.');
   }
 );
