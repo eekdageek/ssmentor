@@ -50,13 +50,16 @@ app.post('/respond', urlencodedParser,
 
 // https://mentor.netlagoon.com/debug
 app.post('/debug', urlencodedParser, (req, res) => {
-  const channelId = req.body.channel_id;
+  const userId = req.body.user_id;
   // survey goes here
-  let data = {
-    response_type: 'in_channel', // public to the channel
-    ...surveyResponse
-  };
-  res.json(data);
+  appState.dispatch({
+    type: ActionTypes.ACTION_INTERACTION_INITIATED,
+    payload: {
+      userId,
+      callbackUrl: surveyResponse.attachments.callback_id
+    }
+  });
+  res.json(surveyResponse);
 })
 
 // on /interaction/:username/:callbackUrl
