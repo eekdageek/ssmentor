@@ -51,12 +51,12 @@ app.post('/respond', urlencodedParser,
 // https://mentor.netlagoon.com/debug
 app.post('/debug', urlencodedParser, (req, res) => {
   console.log(util.inspect(req));
-  const actionJSONPayload = JSON.parse(req.body) // parse URL-encoded payload JSON string  
+  const userName = req.body.name;
   // survey goes here
   const messageText = surveyResponse.text;
   const options = surveyResponse;
   options.attachments[0].callback_id = callbackUrl;
-  bot.postMessageToUser(actionJSONPayload.user.name, message.text, options).then(function(response) {
+  bot.postMessageToUser(userName, message.text, options).then(function(response) {
     res.status(200).end();
   })
 })
