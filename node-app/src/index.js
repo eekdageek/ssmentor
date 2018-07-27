@@ -4,7 +4,6 @@ const fetch = require('node-fetch');
 const util = require('util');
 const bodyParser = require('body-parser');
 
-import slackApi from './slack-wrapper';
 import { createStore } from 'redux';
 import stateReducer from './state/reducer';
 import * as ActionTypes from './state/actions';
@@ -43,12 +42,10 @@ app.post('/respond', urlencodedParser,
     // notify rails app
     const localUrl = 'http://localhost:3000/'+actionJSONPayload.callback_id;
     const field = actionJSONPayload.actions[0].name;
-    const body = {
-      [field]: actionJSONPayload.actions[0].value
-    };
+    const body = '{"'+field+'":"'actionJSONPayload.actions[0].value+'"}';
     fetch(localUrl, { 
         method: 'PUT',
-        body:    body,
+        body:    JSON.parse(body),
         headers: { 'Content-Type': 'application/json' },
     }).then(() => {
       console.log('Notified DB');
