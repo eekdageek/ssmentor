@@ -86,7 +86,12 @@ app.post('/interaction/:slackId', urlencodedParser,
        messageText = "Checkin time: have you had a chance to meet with your mentor since we last checked in?";
         options = checkinResponse;
     }
-    options.attachments[0].callback_id = callbackUrl;
+    
+    let i;
+    for (i in options.attachments) {
+      options.attachments[i].callback_id = callbackUrl;  
+    }
+    
     let userInfo;
     slackApi.users.info({ user: user })
     .then(resp => {
