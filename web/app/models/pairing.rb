@@ -11,7 +11,7 @@ class Pairing < ApplicationRecord
   validates_presence_of :mentor, :mentee
 
   def checkin!
-    if c = Checkin.new(pairing: self).save
+    if (c = Checkin.new(pairing: self)).save
       self.class.post("/interaction/#{self.mentee.participant.slack_id}", body: {callback_url: "/checkins/#{c.id}"})
     else
       raise "Failed to save checkin #{c}"
@@ -19,7 +19,7 @@ class Pairing < ApplicationRecord
   end
 
   def survey!
-    if c = Survey.new(pairing: self).save
+    if (c = Survey.new(pairing: self)).save
       self.class.post("/interaction/#{self.mentee.participant.slack_id}", body: {callback_url: "/surveys/#{c.id}"})
     else
       raise "Failed to save survey #{c}"
