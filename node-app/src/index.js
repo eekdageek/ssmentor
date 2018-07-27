@@ -21,7 +21,7 @@ appState.subscribe(() =>
 
 // Create Slackbot Instance
 var bot = new Slackbot({
-  token: 'xoxb-404728279508-404788951364-Pp4jxAUwTi3TS5qDhjOuGApp',
+  token: 'xoxb-404728279508-404788951364-uR4BVvgD4xuyumJWuK0yQ1EP',
   name: "Mentorship Team"
 });
 
