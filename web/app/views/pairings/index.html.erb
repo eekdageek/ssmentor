@@ -16,9 +16,9 @@
 	<td>
 		<% if c = p.checkins.last %>
 			<% if c.q1 %>
-				<%= c.q1 %> at <%= c.created_at %>
+				<%= c.q1 %>, <%= time_ago_in_words c.created_at %> ago
 			<% else %>
-				Checkin request sent at <%= c.created_at %>
+				Checkin request sent <%= time_ago_in_words c.created_at %> ago
 			<% end %>
 		<% end %>
 	</td>
