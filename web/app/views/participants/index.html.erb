@@ -1,0 +1,19 @@
+
+<h2> Participants</h2>
+
+<p><%= link_to 'New participant...', new_participant_path %></p>
+
+<table>
+	<% @participants.each do |p| %>
+	<tr>
+		<td><%= p.name %></td>
+		<td><%= p.slack_id %></td>
+		<td>
+			<% if p.mentors.any? %>Mentor <% end %>
+			<% if p.mentees.any? %>Mentee <% end %>
+		</td>
+		<td><%= link_to 'Edit', edit_participant_path(p)%></td>
+		<td><%= link_to 'Delete', participant_path(p), method: :delete %></td>
+	</tr>
+	<% end %>
+</table>
