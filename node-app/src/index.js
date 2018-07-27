@@ -13,7 +13,6 @@ import checkinResponse from './routes/menu_checkin';
 import surveyResponse from './routes/menu_survey';
 import dialogResponse from './routes/menu_dialog';
 
-
 // Create Express App
 const app = express();
 const appState = createStore(stateReducer);
@@ -63,13 +62,12 @@ app.post('/respond', urlencodedParser,
 // https://mentor.netlagoon.com/debug
 app.post('/debug', urlencodedParser, (req, res) => {
   const user = req.body.user_id;
-  surveyResponse = dialogResponse;
   // survey goes here
   appState.dispatch({
     type: ActionTypes.ACTION_INTERACTION_INITIATED,
     payload: {
       user,
-      callbackUrl: surveyResponse.attachments.callback_id
+      callbackUrl: dialogResponse.attachments.callback_id
     }
   });
   res.json(surveyResponse);
