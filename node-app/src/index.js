@@ -2,7 +2,7 @@ const express = require('express');
 const Slackbot = require('slackbots');
 const util = require('util');
 const bodyParser = require('body-parser');
-const http = require("http");
+var request = require("request");
 
 import { createStore } from 'redux';
 import stateReducer from './state/reducer';
@@ -35,15 +35,15 @@ app.post('/respond', urlencodedParser,
     const body = JSON.stringify({
       [field] : actionJSONPayload.actions[0].value
     })
-    var client = http.createClient(3000, 'localhost');
-    const options = {
-      hostname: 'localhost',
-      port: 3000,
-      path: actionJSONPayload.callback_url,
-      method: 'PUT',
-    };
-    var request = http.request(options);
-    request.write(body);
+    const pathCallback = actionJSONPayload.callback_url;
+    request({
+      uri: "http://localhost:3000/" + pathCallback,
+      method: "PUT",
+      timeout: 10000,
+      form: body
+    }, function(error, response, body) {
+      console.log(body);
+    });
     // Respond to the client
     const message = {
         "text": "Thanks for letting us know! If you have any questions/concerns, give us a shout in this channel!",
