@@ -4,5 +4,8 @@ Rails.application.routes.draw do
   resources :checkins
   resources :participants
 
-  resources :pairings
+  resources :pairings do
+    post :checkin, on: :member
+    post :survey, on: :member
+  end
 end

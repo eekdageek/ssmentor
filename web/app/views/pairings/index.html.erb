@@ -10,6 +10,8 @@
 <tr>
 	<td><%= p.mentor.participant.name %></td>
 	<td><%= p.mentee.participant.name %></td>
+	<td><%= link_to 'Check in', checkin_pairing_path(p), method: :post %></td>
+	<td><%= link_to 'Send survey', survey_pairing_path(p), method: :post %></td>
 	<td><%= link_to 'Delete', pairing_path(p), method: :delete %></td>
 </tr>
 <% end %>
