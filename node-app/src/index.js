@@ -32,30 +32,12 @@ app.post('/respond', urlencodedParser,
     console.log(util.inspect(actionJSONPayload));
     // notify rails app
     const field = actionJSONPayload.actions[0].name;
-    const bodyString = '{"'+field+'":"'+actionJSONPayload.actions[0].value+'"}';
-    var headers = {
-      'content-type': 'application/json'
-    };  
-    var options = {
-      host: 'localhost',
-      port: 3000,
-      path: actionJSONPayload.callback_id,
-      method: 'PUT',
-      headers
-    };
-    console.log('Request options \n',options);
-    const callback = function(response) {
-      let str = '';
-      //another chunk of data has been recieved, so append it to `str`
-      response.on('data', function(chunk) {
-        str += chunk;
-      });
-      //the whole response has been recieved, so we just print it out here
-      response.on('end', function() {
-        console.log(str);
-      });
-    };
-    http.request(options, callback).write(bodyString);
+    const body = JSON.stringify({
+      [field] : actionJSONPayload.actions[0].value
+    })
+    var client = http.createClient(3000, 'localhost');
+    var request = client.request('PUT', actionJSONPayload.callback_url);
+    request.write(body);
     // Respond to the client
     const message = {
         "text": "Thanks for letting us know! If you have any questions/concerns, give us a shout in this channel!",
