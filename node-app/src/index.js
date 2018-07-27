@@ -85,23 +85,22 @@ app.post('/interaction/:slackId', urlencodedParser,
       userInfo = resp.user.name;
       if (resp.user) {
         userInfo= resp.user;
+        bot.postMessageToUser(userInfo, messageText, options).then(function(response) {
+          appState.dispatch({
+            type: ActionTypes.ACTION_INTERACTION_INITIATED,
+            payload: {
+              user,
+              callbackUrl
+            }
+          });
+          res.status(200).end();
+        }).catch(function(ex) {
+          res.send('Error: ', ex.message);
+        });
       } else {
         console.log('No matches found');
       }
     }).catch(console.error);
-    console.log('USERINFO\n',userInfo);
-    bot.postMessageToUser(userInfo, messageText, options).then(function(response) {
-      appState.dispatch({
-        type: ActionTypes.ACTION_INTERACTION_INITIATED,
-        payload: {
-          user,
-          callbackUrl
-        }
-      });
-      res.status(200).end();
-    }).catch(function(ex) {
-      res.send('Error: ', ex.message);
-    });
   }
 );
 
