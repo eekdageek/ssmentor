@@ -80,7 +80,7 @@ app.post('/interaction/:slackId', urlencodedParser,
     options.attachments[0].callback_id = callbackUrl;
     let userInfo;
     slackApi.makeAPICall('users.info', null /*no required args to this call*/, {
-      user: msgObject.user, //optional user param
+      user: user, //optional user param
       include_labels: false //optional include_labels param, defaults to false
     }, function(err, info) {
       //err is set if there was an error 
