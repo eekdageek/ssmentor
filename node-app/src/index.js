@@ -65,12 +65,11 @@ app.post('/debug', urlencodedParser, (req, res) => {
 // on /interaction/:slackId
 app.route('/interaction/:slackId').post(
   (req, res) => {
-    console.log("+ Params supplied: ", util.inspect(req.params));
-    console.log("+ Body supplied: ", util.inspect(req.body));
-    
+    console.log("+ Request ", util.inspect(req));
+
     const slackId = req.params.slackId;
     const userName = bot.getUserById(slackId).name;
-    const callbackUrl = req.body.callbackUrl;
+    const callbackUrl = req.body.callback_url;
     const messageText = "Have you had a chance to meet with your mentor since we last checked in?";
     const options = checkinResponse;
     options.attachments[0].callback_id = callbackUrl;
