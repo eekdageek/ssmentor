@@ -77,15 +77,8 @@ app.post('/interaction/:slackId', urlencodedParser,
   (req, res) => {
     const user = req.params.slackId;
     const callbackUrl = req.body.callback_url;
-    let messageText;
-    let options;
-    if (callbackUrl.indexOf('survey') >= 0) {
-       options = surveyResponse;
-       messageText = surveyResponse.text;
-    } else {
-       messageText = "Checkin time: have you had a chance to meet with your mentor since we last checked in?";
-        options = checkinResponse;
-    }
+    const messageText = "Have you had a chance to meet with your mentor since we last checked in?";
+    const options = checkinResponse;
     options.attachments[0].callback_id = callbackUrl;
     let userInfo;
     slackApi.users.info({ user: user })
@@ -115,7 +108,7 @@ bot.on('message', function(msgObject) {
   switch (msgObject.type) {
     case "message": {
       console.log('Message received: \n\n', msgObject);
-      if (msgObject.message && msgObject.message.bot_id){
+      if (msgObject.message.bot_id){
         return;
       }
       // https://hooks.slack.com/services/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
