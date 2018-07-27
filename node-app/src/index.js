@@ -108,7 +108,7 @@ bot.on('message', function(msgObject) {
   switch (msgObject.type) {
     case "message": {
       console.log('Message received: \n\n', msgObject);
-      if (msgObject.bot_id){
+      if (msgObject.message.bot_id){
         return;
       }
       // https://hooks.slack.com/services/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
