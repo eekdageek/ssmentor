@@ -30,25 +30,15 @@ app.post('/respond', urlencodedParser,
   (req, res) => {
     const actionJSONPayload = JSON.parse(req.body.payload) // parse URL-encoded payload JSON string
     console.log(util.inspect(actionJSONPayload));
-    // update redux store
-    appState.dispatch({
-      type: ActionTypes.INTERACTION_RESPONDED,
-      payload: {
-        user: actionJSONPayload.user.id,
-        callbackUrl: actionJSONPayload.callback_id,
-        slackResponse: actionJSONPayload.actions[0]
-      }
-    });
     // notify rails app
     const field = actionJSONPayload.actions[0].name;
     const bodyString = '{"'+field+'":"'+actionJSONPayload.actions[0].value+'"}';
-
     var headers = {
         'Content-Type': 'application/json',
         'Content-Length': bodyString.length
     };  
     var options = {
-      host: 'http://localhost',
+      host: 'localhost',
       port: 3000,
       path: actionJSONPayload.callback_id,
       method: 'PUT',
