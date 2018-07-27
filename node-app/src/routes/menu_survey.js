@@ -5,7 +5,7 @@ export default {
         {
 			"text": "Developing field-specific skills",
             "fallback": "lets try again?",
-            "callback_id": "survey_opportunities_response",
+            "callback_id": "so1",
             "color": "#3AA3E3",
             "attachment_type": "default",
             "actions": [
@@ -47,7 +47,7 @@ export default {
                 
 			"text": "Developing presentation/communication skills",
             "fallback": "lets try again?",
-            "callback_id": "survey_opportunities_response",
+            "callback_id": "so2",
             "color": "#3AA3E3",
             "attachment_type": "default",
             "actions": [
@@ -87,7 +87,7 @@ export default {
 			{
 			"text": "Work/life balance and Time Management Skills",
             "fallback": "lets try again?",
-            "callback_id": "survey_opportunities_response",
+            "callback_id": "so3",
             "color": "#3AA3E3",
             "attachment_type": "default",
             "actions": [
@@ -127,7 +127,7 @@ export default {
 			{
 			"text": "Short-term career aspirations (next level)",
             "fallback": "lets try again?",
-            "callback_id": "survey_opportunities_response",
+            "callback_id": "so4",
             "color": "#3AA3E3",
             "attachment_type": "default",
             "actions": [
@@ -167,7 +167,7 @@ export default {
 			{
 			"text": "Long-term career development",
             "fallback": "lets try again?",
-            "callback_id": "survey_opportunities_response",
+            "callback_id": "so5",
             "color": "#3AA3E3",
             "attachment_type": "default",
             "actions": [
@@ -207,7 +207,7 @@ export default {
 			{
 			"text": "Support Transitioning Roles or Teams",
             "fallback": "lets try again?",
-            "callback_id": "survey_opportunities_response",
+            "callback_id": "so6",
             "color": "#3AA3E3",
             "attachment_type": "default",
             "actions": [
