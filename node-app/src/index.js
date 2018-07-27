@@ -39,6 +39,7 @@ app.post('/respond', urlencodedParser,
       [field] : actionJSONPayload.actions[0].value
     })
     const pathCallback = "localhost:3000/"+actionJSONPayload.callback_id;
+    console.log('Hitting rails app at : ', pathCallback);
     request({
       uri: pathCallback,
       method: "PUT",
