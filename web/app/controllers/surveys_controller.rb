@@ -1,6 +1,4 @@
 class SurveysController < ActionController::API
-  skip_before_action :verify_authenticity_token
-
   def update
     @survey = Survey.find(params[:id])
     body = request.body.read
