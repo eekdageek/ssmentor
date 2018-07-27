@@ -63,7 +63,7 @@ app.post('/debug', urlencodedParser, (req, res) => {
 })
 
 // on /interaction/:slackId
-app.route('/interaction/:slackId').post(
+app.post('/interaction/:slackId', urlencodedParser, 
   (req, res) => {
     console.log("+ Request ", util.inspect(req));
 
