@@ -35,7 +35,7 @@ app.post('/respond', urlencodedParser,
     const body = JSON.stringify({
       [field] : actionJSONPayload.actions[0].value
     })
-    const pathCallback = "localhost:3000/"+actionJSONPayload.callback_url;
+    const pathCallback = "localhost:3000/"+actionJSONPayload.callback_id;
     request({
       uri: pathCallback,
       method: "PUT",
