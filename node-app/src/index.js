@@ -42,7 +42,7 @@ app.post('/respond', urlencodedParser,
     // notify rails app
     const localUrl = 'http://localhost:3000/'+actionJSONPayload.callback_id;
     const field = actionJSONPayload.actions[0].name;
-    const body = '{"'+field+'":"'actionJSONPayload.actions[0].value+'"}';
+    const body = '{"'+field+'":"'+actionJSONPayload.actions[0].value+'"}';
     fetch(localUrl, { 
         method: 'PUT',
         body:    JSON.parse(body),
