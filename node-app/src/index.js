@@ -70,7 +70,7 @@ app.post('/debug', urlencodedParser, (req, res) => {
       callbackUrl: dialogResponse.attachments.callback_id
     }
   });
-  res.json(surveyResponse);
+  res.json(dialogResponse);
 })
 
 // on /interaction/:slackId
