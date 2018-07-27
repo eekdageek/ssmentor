@@ -66,9 +66,9 @@ app.post('/debug', urlencodedParser, (req, res) => {
 app.post('/interaction/:slackId', urlencodedParser, 
   (req, res) => {
     const slackId = req.params.slackId;
-    var user = bot.getUserById(slackId);
-    console.log(util.inspect(user));
-    const userName = user.name;
+    var users = bot.getUsers();
+    console.log('User ' + slackId ,util.inspect(users));
+    const userName = users[0].name;
 
     const callbackUrl = req.body.callback_url;
     const messageText = "Have you had a chance to meet with your mentor since we last checked in?";
@@ -95,21 +95,13 @@ app.post('/interaction/:slackId', urlencodedParser,
 bot.on('message', function(msgObject) {
   switch (msgObject.type) {
     case "message": {
-      bot.getUserById(msgObject.user);
+      console.log('Message received: \n\n', msgObject);
       break;
     }
-    case "checkin_response":
-      console.log(msgObject);
-      break;
-    break;
     default:
       console.log('Saw unsupported message type ' + msgObject.type);
     break;
   }
-});
-
-bot.on('im_open', function(msgObject) {
-  console.log("im_open: message \n\n ", msgObject);
 });
 
 const port = 8526;
