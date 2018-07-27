@@ -50,15 +50,13 @@ app.post('/respond', urlencodedParser,
 
 // https://mentor.netlagoon.com/debug
 app.post('/debug', urlencodedParser, (req, res) => {
-  console.log(util.inspect(req.body));
   const channelId = req.body.channel_id;
   // survey goes here
-  const messageText = surveyResponse.text;
-  const options = surveyResponse;
-  options.attachments[0].callback_id = 'debug_command';
-  bot.postTo(channelId, "debug text", options).then(function(response) {
-    res.status(200).end();
-  })
+  let data = {
+    response_type: 'in_channel', // public to the channel
+    ...surveyResponse
+  ]};
+  res.json(data);
 })
 
 // on /interaction/:username/:callbackUrl
