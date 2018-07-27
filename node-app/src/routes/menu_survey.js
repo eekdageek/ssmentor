@@ -1,6 +1,5 @@
 export default {
 
-	"trigger_id": "13345224609.738474920.8088930838d88f008e0"
 	"text": "I am aware of opportunities relating to... ",
 	"response_type": "in_channel",
     "attachments": [
