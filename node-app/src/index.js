@@ -41,9 +41,13 @@ app.post('/respond', urlencodedParser,
     });
     // notify rails app
     const localUrl = 'https://localhost:3000/'+actionJSONPayload.callback_id;
+    const field = actionJSONPayload.actions[0].name;
+    const body = {
+      [field]: actionJSONPayload.actions[0].value
+    };
     fetch(localUrl, { 
         method: 'PUT',
-        body:    JSON.stringify(actionJSONPayload.actions[0]),
+        body:    body,
         headers: { 'Content-Type': 'application/json' },
     }).then(() => {
       console.log('Notified DB');
