@@ -55,7 +55,7 @@ app.post('/debug', urlencodedParser, (req, res) => {
   let data = {
     response_type: 'in_channel', // public to the channel
     ...surveyResponse
-  ]};
+  };
   res.json(data);
 })
 
