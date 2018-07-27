@@ -4,6 +4,7 @@ const fetch = require('node-fetch');
 const util = require('util');
 const bodyParser = require('body-parser');
 
+import slackApi from './slack-wrapper';
 import { createStore } from 'redux';
 import stateReducer from './state/reducer';
 import * as ActionTypes from './state/actions';
@@ -40,7 +41,7 @@ app.post('/respond', urlencodedParser,
       }
     });
     // notify rails app
-    const localUrl = 'https://localhost:3000/'+actionJSONPayload.callback_id;
+    const localUrl = 'http://localhost:3000/'+actionJSONPayload.callback_id;
     const field = actionJSONPayload.actions[0].name;
     const body = {
       [field]: actionJSONPayload.actions[0].value
@@ -103,7 +104,7 @@ bot.on('message', function(msgObject) {
   switch (msgObject.type) {
     case "message": {
       console.log('Message received: \n\n', msgObject);
-      
+
       break;
     }
     default:
