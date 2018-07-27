@@ -62,7 +62,11 @@ app.post('/respond', urlencodedParser,
 // https://mentor.netlagoon.com/debug
 app.post('/debug', urlencodedParser, (req, res) => {
   const user = req.body.user_id;
-  console.log('req: ', req);
+  //console.log('req: ', req);
+  app.send('dialog.open', {token: 'xoxb-404728279508-404788951364-uR4BVvgD4xuyumJWuK0yQ1EP', dialog: dialogResponse, trigger_id: '13345224609.738474920.8088930838d88f008e0'}).then(data =>{
+ 	console.log("data: ", data);
+ 
+  });
   // survey goes here
   appState.dispatch({
     type: ActionTypes.ACTION_INTERACTION_INITIATED,
