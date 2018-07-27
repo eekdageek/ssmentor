@@ -4,6 +4,7 @@ export default {
             "text": "Choose the option that best suits your situation",
             "fallback": "lets try again?",
             "color": "#3AA3E3",
+            'slackbot': false,
             "attachment_type": "default",
             "actions": [
                 {
