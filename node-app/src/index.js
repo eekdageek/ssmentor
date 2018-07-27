@@ -16,8 +16,7 @@ import surveyResponse from './routes/menu_survey';
 const app = express();
 const appState = createStore(stateReducer);
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
-const token = ;
-const slackApi = new WebClient(token);
+const slackApi = new WebClient(process.env.API_TOKEN);
 
 appState.subscribe(() =>
   console.log('** Store Update ** \n', JSON.stringify(appState.getState(), null, '\t'))
