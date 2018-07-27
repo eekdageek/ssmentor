@@ -9,6 +9,7 @@ import stateReducer from './state/reducer';
 import * as ActionTypes from './state/actions';
 import checkinResponse from './routes/menu_checkin';
 import surveyResponse from './routes/menu_survey';
+
 // Create Express App
 const app = express();
 const appState = createStore(stateReducer);
@@ -47,17 +48,29 @@ app.post('/respond', urlencodedParser,
   }
 );
 
+// https://mentor.netlagoon.com/debug
+app.post('/debug', urlencodedParserm (req, res) => {
+  const actionJSONPayload = JSON.parse(req.body.payload) // parse URL-encoded payload JSON string  
+  // survey goes here
+  const messageText = surveyResponse.text;
+  const options = surveyResponse;
+  options.attachments[0].callback_id = callbackUrl;
+  bot.postMessageToUser(actionJSONPayload.user.name, message.text, options).then(function(response) {
+    res.status(200).end();
+  })
+})
+
 // on /interaction/:username/:callbackUrl
-app.route('/interaction/:userName/:callbackUrl').post(
+app.route('/interaction/:slackId').post(
   (req, res) => {
-    console.log("+ Parans supplied: ", util.inspect(req.params));
+    console.log("+ Params supplied: ", util.inspect(req.params));
+    console.log("+ Body supplied: ", util.inspect(req.body));
     const userName = req.params.userName;
     const callbackUrl = req.params.callbackUrl;
     const messageText = "Have you had a chance to meet with your mentor since we last checked in?";
     const options = checkinResponse;
     options.attachments[0].callback_id = callbackUrl;
 
-    console.log(util.inspect(options));
     bot.postMessageToUser(userName, messageText, options).then(function(response) {
       console.log('Response: ',util.inspect(response));
       appState.dispatch({
