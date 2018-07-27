@@ -82,6 +82,7 @@ app.post('/interaction/:slackId', urlencodedParser,
     slackApi.users.info({ user: user })
     .then(resp => {
       console.log(resp);
+      userInfo = resp.user.name;
       if (resp.user) {
         userInfo= resp.user;
       } else {
@@ -89,7 +90,7 @@ app.post('/interaction/:slackId', urlencodedParser,
       }
     }).catch(console.error);
     console.log('USERINFO\n',userInfo);
-    bot.postMessageToUser(userInfo.name, messageText, options).then(function(response) {
+    bot.postMessageToUser(userInfo, messageText, options).then(function(response) {
       appState.dispatch({
         type: ActionTypes.ACTION_INTERACTION_INITIATED,
         payload: {
