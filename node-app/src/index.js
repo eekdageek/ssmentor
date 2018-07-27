@@ -50,7 +50,7 @@ app.post('/respond', urlencodedParser,
 
 // https://mentor.netlagoon.com/debug
 app.post('/debug', urlencodedParser, (req, res) => {
-  console.log(util.inspect(req));
+  console.log(util.inspect(req.body));
   const userName = req.body.name;
   // survey goes here
   const messageText = surveyResponse.text;
