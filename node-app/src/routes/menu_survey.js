@@ -10,7 +10,7 @@ export default {
             "attachment_type": "default",
             "actions": [
             	{
-            		"name": "field_specific",
+            		"name": "q1",
             		"text": "Developing field-specific skills",
             		"type": "select",
             		"options": [
@@ -52,7 +52,7 @@ export default {
             "attachment_type": "default",
             "actions": [
             	{
-            		"name": "field_specific",
+            		"name": "q2",
             		"text": "Developing presentation/communication skills",
             		"type": "select",
             		"options": [
@@ -92,7 +92,7 @@ export default {
             "attachment_type": "default",
             "actions": [
             	{
-            		"name": "field_specific",
+            		"name": "q3",
             		"text": "Work/life balance and Time Management Skills",
             		"type": "select",
             		"options": [
@@ -132,7 +132,7 @@ export default {
             "attachment_type": "default",
             "actions": [
             	{
-            		"name": "field_specific",
+            		"name": "q4",
             		"text": "Short-term career aspirations (next level)",
             		"type": "select",
             		"options": [
@@ -172,7 +172,7 @@ export default {
             "attachment_type": "default",
             "actions": [
             	{
-            		"name": "field_specific",
+            		"name": "q5",
             		"text": "Long-term career development",
             		"type": "select",
             		"options": [
@@ -212,7 +212,7 @@ export default {
             "attachment_type": "default",
             "actions": [
             	{
-            		"name": "field_specific",
+            		"name": "q6",
             		"text": "Support Transitioning Roles or Teams",
             		"type": "select",
             		"options": [
@@ -246,5 +246,5 @@ export default {
             ]            
             
         }
-    ]
+    ]s
 };
