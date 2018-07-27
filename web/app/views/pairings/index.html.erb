@@ -5,11 +5,23 @@
 		<th>Mentor</th>
 		<th>Mentee</th>
 		<th></th>
+		<th></th>
+		<th></th>
+		<th></th>
 	</tr>
 <% @pairings.each do |p| %>
 <tr>
 	<td><%= p.mentor.participant.name %></td>
 	<td><%= p.mentee.participant.name %></td>
+	<td>
+		<% if c = p.checkins.last %>
+			<% if c.q1 %>
+				<%= c.q1 %> at <%= c.created_at %>
+			<% else %>
+				Checkin request sent at <%= c.created_at %>
+			<% end %>
+		<% end %>
+	</td>
 	<td><%= link_to 'Check in', checkin_pairing_path(p) %></td>
 	<td><%= link_to 'Send survey', survey_pairing_path(p) %></td>
 	<td><%= link_to 'Delete', pairing_path(p), method: :delete %></td>
