@@ -81,6 +81,7 @@ app.post('/interaction/:slackId', urlencodedParser,
     let userInfo;
     slackApi.users.info({ user: user })
     .then(resp => {
+      console.log('RESPONSE: ',resp);
       if (resp.user) {
         userInfo= resp.user[0];
       } else {
