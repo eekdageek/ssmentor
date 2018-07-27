@@ -1,8 +1,8 @@
 const express = require('express');
 const Slackbot = require('slackbots');
-const fetch = require('node-fetch');
 const util = require('util');
 const bodyParser = require('body-parser');
+const http = require("http");
 
 import { createStore } from 'redux';
 import stateReducer from './state/reducer';
