@@ -62,6 +62,7 @@ app.post('/respond', urlencodedParser,
 // https://mentor.netlagoon.com/debug
 app.post('/debug', urlencodedParser, (req, res) => {
   const user = req.body.user_id;
+  console.log('req: ', req);
   // survey goes here
   appState.dispatch({
     type: ActionTypes.ACTION_INTERACTION_INITIATED,
