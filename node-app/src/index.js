@@ -40,7 +40,7 @@ app.post('/respond', urlencodedParser,
       }
     });
     // notify rails app
-    const localUrl = 'localhost:3000/'+actionJSONPayload.callback_id;
+    const localUrl = 'https://localhost:3000/'+actionJSONPayload.callback_id;
     fetch(localUrl, { 
         method: 'PUT',
         body:    JSON.stringify(actionJSONPayload.actions[0]),
