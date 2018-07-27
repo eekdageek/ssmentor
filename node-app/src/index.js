@@ -107,10 +107,10 @@ app.post('/interaction/:slackId', urlencodedParser,
 bot.on('message', function(msgObject) {
   switch (msgObject.type) {
     case "message": {
+      console.log('Message received: \n\n', msgObject);
       if (msgObject.bot_id){
         return;
       }
-      console.log('Message received: \n\n', msgObject);
       // https://hooks.slack.com/services/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
       const webhook = "https://hooks.slack.com/services/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";
       var payload=JSON.stringify({"text":"Recieved message from "+msgObject.user+':\n'+msgObject.text});
