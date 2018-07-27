@@ -81,10 +81,8 @@ app.post('/interaction/:slackId', urlencodedParser,
     let userInfo;
     slackApi.users.info({ user: user })
     .then(resp => {
-      console.log(resp);
       userInfo = resp.user.name;
       if (resp.user) {
-        userInfo= resp.user;
         bot.postMessageToUser(userInfo, messageText, options).then(function(response) {
           appState.dispatch({
             type: ActionTypes.ACTION_INTERACTION_INITIATED,
@@ -107,6 +105,9 @@ app.post('/interaction/:slackId', urlencodedParser,
 bot.on('message', function(msgObject) {
   switch (msgObject.type) {
     case "message": {
+      if (msgObject.bot_id){
+        return;
+      }
       console.log('Message received: \n\n', msgObject);
       // https://hooks.slack.com/services/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
       const webhook = "https://hooks.slack.com/services/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";
