@@ -1,0 +1,49 @@
+<h2>Active pairings</h2>
+
+<table>
+	<tr>
+		<th>Mentor</th>
+		<th>Mentee</th>
+		<th></th>
+	</tr>
+<% @pairings.each do |p| %>
+<tr>
+	<td><%= p.mentor.participant.name %></td>
+	<td><%= p.mentee.participant.name %></td>
+	<td><%= link_to 'Delete', pairing_path(p), method: :delete %></td>
+</tr>
+<% end %>
+</table>
+
+<%= form_for :pairing do |f| %>
+<p><%= f.submit 'Create pairing' %></p>
+<table width="100%">
+	<tr>
+		<td width="50%">
+			<h2>Free mentee candidates</h2>
+
+			<table>
+				<% @mentees.each do |m| %>
+					<tr>
+						<td><%= f.radio_button :mentee_id, m.id %></td>
+						<td><%= m.participant.name%></td>
+					</tr>
+				<% end %>
+			</table>
+		</td>
+
+		<td width="50%">
+			<h2>Free mentor candidates</h2>
+			<table>
+				<% @mentors.each do |m| %>
+					<tr>
+						<td><%= f.radio_button :mentor_id, m.id %></td>
+						<td><%= m.participant.name%></td>
+					</tr>
+				<% end %>
+			</table>
+		</td>
+	</tr>
+</table>
+
+<% end %>

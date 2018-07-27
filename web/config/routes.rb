@@ -3,4 +3,6 @@ Rails.application.routes.draw do
   resources :surveys
   resources :checkins
   resources :participants
+
+  resources :pairings
 end
