@@ -17,7 +17,7 @@ const app = express();
 const appState = createStore(stateReducer);
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 const token = ;
-const webApi = new WebClient(token);
+const slackApi = new WebClient(token);
 
 appState.subscribe(() =>
   console.log('** Store Update ** \n', JSON.stringify(appState.getState(), null, '\t'))
@@ -80,16 +80,16 @@ app.post('/interaction/:slackId', urlencodedParser,
     const options = checkinResponse;
     options.attachments[0].callback_id = callbackUrl;
     let userInfo;
-    slackApi.makeAPICall('users.info', null /*no required args to this call*/, {
-      user: msgObject.user, //optional user param
-      include_labels: false //optional include_labels param, defaults to false
-    }, function(err, info) {
-      //err is set if there was an error 
-      //otherwise info will be an object that contains the result of the call
-      if (!err) {
-        userInfo = info;
-      }
-    });
+    // slackApi.makeAPICall('users.info', null /*no required args to this call*/, {
+    //   user: msgObject.user, //optional user param
+    //   include_labels: false //optional include_labels param, defaults to false
+    // }, function(err, info) {
+    //   //err is set if there was an error 
+    //   //otherwise info will be an object that contains the result of the call
+    //   if (!err) {
+    //     userInfo = info;
+    //   }
+    // });
     bot.postMessage(user, messageText, options).then(function(response) {
       appState.dispatch({
         type: ActionTypes.ACTION_INTERACTION_INITIATED,
