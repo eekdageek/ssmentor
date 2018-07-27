@@ -65,6 +65,7 @@ app.post('/debug', urlencodedParser, (req, res) => {
   //console.log('req: ', req);
   app.send('dialog.open', {token: 'xoxb-404728279508-404788951364-uR4BVvgD4xuyumJWuK0yQ1EP', dialog: dialogResponse, trigger_id: '13345224609.738474920.8088930838d88f008e0'}).then(data =>{
  	console.log("data: ", data);
+ 	console.log("dialog.open");
  
   });
   // survey goes here
