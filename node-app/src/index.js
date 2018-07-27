@@ -3,8 +3,8 @@ const Slackbot = require('slackbots');
 const util = require('util');
 const bodyParser = require('body-parser');
 const request = require("request");
-const  fs = require('fs');
 const { WebClient } = require('@slack/client');
+const urljoin = require('url-join');
 
 import { createStore } from 'redux';
 import stateReducer from './state/reducer';
@@ -39,7 +39,7 @@ app.post('/respond', urlencodedParser,
       [field] : actionJSONPayload.actions[0].value
     })
 
-    const pathCallback = url.resolve("localhost:3000", actionJSONPayload.callback_id);
+    const pathCallback = urljoin("localhost:3000", actionJSONPayload.callback_id);
     console.log('Hitting rails app at : ', pathCallback);
     request({
       uri: pathCallback,
