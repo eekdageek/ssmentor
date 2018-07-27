@@ -32,6 +32,7 @@ function reducer(state = {}, action) {
         console.warn(">> Trying to complete unknow interaction " + interactionId + " for user " + user);
         return state;
       }
+
       // fold in new information with existing state info if it exists (survey + checkin for example)
       state[user] = {
         ...state[user],
@@ -40,7 +41,6 @@ function reducer(state = {}, action) {
           [interactionId]: {
             status: ActionTypes.STATUS_PARTIAL_RESPONSE,
             body: {
-              ...state[user][interactionId].body,
               ...action.payload.slackResponse
             }
           }

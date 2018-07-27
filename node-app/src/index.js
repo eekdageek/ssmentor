@@ -40,11 +40,9 @@ app.post('/respond', urlencodedParser,
     });
     const message = {
         "text": "Your response has been recorded",
-        "replace_original": false
+        "replace_original": true
     }
-    bot.postMessageToUser(actionJSONPayload.user.name, message.text).then(function(response) {
-      res.status(200).end();
-    })
+    res.json(message);
   }
 );
 
