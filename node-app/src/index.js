@@ -40,14 +40,17 @@ app.post('/respond', urlencodedParser,
       }
     });
     // notify rails app
-    fetch('localhost:3000/'+actionJSONPayload.callback_id, { 
+    const localUrl = 'localhost:3000/'+actionJSONPayload.callback_id;
+    fetch(localUrl, { 
         method: 'PUT',
         body:    JSON.stringify(actionJSONPayload.actions[0]),
         headers: { 'Content-Type': 'application/json' },
+    }).then(() => {
+      console.log('Notified DB');
     });
     // Respond to the client
     const message = {
-        "text": "Your response has been recorded",
+        "text": "Thanks for letting us know! If you have any questions/concerns, give us a shout in this channel!",
         "replace_original": true
     }
     res.json(message);
