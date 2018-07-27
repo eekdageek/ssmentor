@@ -81,31 +81,33 @@ app.post('/interaction/:slackId', urlencodedParser,
     let userInfo;
     slackApi.users.info({ user: user })
     .then(resp => {
+      userInfo = resp.user.name;
       if (resp.user) {
-        userInfo= resp.user;
+        bot.postMessageToUser(userInfo, messageText, options).then(function(response) {
+          appState.dispatch({
+            type: ActionTypes.ACTION_INTERACTION_INITIATED,
+            payload: {
+              user,
+              callbackUrl
+            }
+          });
+          res.status(200).end();
+        }).catch(function(ex) {
+          res.send('Error: ', ex.message);
+        });
       } else {
         console.log('No matches found');
       }
     }).catch(console.error);
-    console.log('USERINFO\n',userInfo);
-    bot.postMessageToUser(userInfo.name, messageText, options).then(function(response) {
-      appState.dispatch({
-        type: ActionTypes.ACTION_INTERACTION_INITIATED,
-        payload: {
-          user,
-          callbackUrl
-        }
-      });
-      res.status(200).end();
-    }).catch(function(ex) {
-      res.send('Error: ', ex.message);
-    });
   }
 );
 
 bot.on('message', function(msgObject) {
   switch (msgObject.type) {
     case "message": {
+      if (msgObject.bot_id){
+        return;
+      }
       console.log('Message received: \n\n', msgObject);
       // https://hooks.slack.com/services/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
       const webhook = "https://hooks.slack.com/services/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";
