@@ -103,6 +103,7 @@ bot.on('message', function(msgObject) {
   switch (msgObject.type) {
     case "message": {
       console.log('Message received: \n\n', msgObject);
+      
       break;
     }
     default:
