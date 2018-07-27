@@ -28,8 +28,8 @@ function reducer(state = {}, action) {
       return state;
     case ActionTypes.INTERACTION_RESPONDED:
       // cant respond to an interaction unless it exists already
-      if (!state[user][interactionId]) {
-        console.warn(">> Trying to complete unknow interaction " + interactionId + " for user " + userName);
+      if (!state[user].interactions[interactionId]) {
+        console.warn(">> Trying to complete unknow interaction " + interactionId + " for user " + user);
         return state;
       }
       // fold in new information with existing state info if it exists (survey + checkin for example)
@@ -49,7 +49,7 @@ function reducer(state = {}, action) {
       return state;
     case ActionTypes.INTERACTION_COMPLETE:
       // cant complete an interaction unless it exists already
-      if (!state[user][interactionId]) {
+      if (!state[user].interactions[interactionId]) {
         console.warn(">> Trying to complete unknow interaction " + interactionId + " for user " + userName);
         return state;
       }
