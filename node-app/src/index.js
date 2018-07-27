@@ -66,21 +66,18 @@ app.post('/debug', urlencodedParser, (req, res) => {
 app.post('/interaction/:slackId', urlencodedParser, 
   (req, res) => {
     const slackId = req.params.slackId;
-    var users = bot.getUsers();
-    console.log('User ' + slackId ,util.inspect(users));
-    const userName = users[0].name;
 
     const callbackUrl = req.body.callback_url;
     const messageText = "Have you had a chance to meet with your mentor since we last checked in?";
     const options = checkinResponse;
     options.attachments[0].callback_id = callbackUrl;
 
-    bot.postMessageToUser(userName, messageText, options).then(function(response) {
+    bot.postMessage(slackId, messageText, options).then(function(response) {
       console.log('Response: ',util.inspect(response));
       appState.dispatch({
         type: ActionTypes.ACTION_INTERACTION_INITIATED,
         payload: {
-          userName,
+          slackId,
           callbackUrl
         }
       });
