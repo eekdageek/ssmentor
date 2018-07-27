@@ -40,17 +40,32 @@ app.post('/respond', urlencodedParser,
       }
     });
     // notify rails app
-    const localUrl = 'http://localhost:3000/'+actionJSONPayload.callback_id;
     const field = actionJSONPayload.actions[0].name;
-    console.log('url: ', localUrl);
-    const body = '{"'+field+'":"'+actionJSONPayload.actions[0].value+'"}';
-    fetch(localUrl, { 
-        method: 'PUT',
-        body:    JSON.parse(body),
-        headers: { 'Content-Type': 'application/json' }
-    }).then(() => {
-      console.log('Notified DB');
-    });
+    const bodyString = '{"'+field+'":"'+actionJSONPayload.actions[0].value+'"}';
+
+    var headers = {
+        'Content-Type': 'application/json',
+        'Content-Length': bodyString.length
+    };  
+    var options = {
+      host: 'http://localhost',
+      port: 3000,
+      path: actionJSONPayload.callback_id,
+      method: 'PUT',
+      headers
+    };
+    const callback = function(response) {
+      let str = '';
+      //another chunk of data has been recieved, so append it to `str`
+      response.on('data', function(chunk) {
+        str += chunk;
+      });
+      //the whole response has been recieved, so we just print it out here
+      response.on('end', function() {
+        console.log(str);
+      });
+    };
+    http.request(options, callback).write(bodyString);
     // Respond to the client
     const message = {
         "text": "Thanks for letting us know! If you have any questions/concerns, give us a shout in this channel!",
