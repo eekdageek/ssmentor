@@ -89,7 +89,7 @@ app.post('/interaction/:slackId', urlencodedParser,
       }
     }).catch(console.error);
     console.log('USERINFO\n',userInfo);
-    bot.postMessage(user, messageText, options).then(function(response) {
+    bot.postMessageToUser(userInfo.name, messageText, options).then(function(response) {
       appState.dispatch({
         type: ActionTypes.ACTION_INTERACTION_INITIATED,
         payload: {
