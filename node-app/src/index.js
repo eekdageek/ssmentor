@@ -39,7 +39,7 @@ app.post('/respond', urlencodedParser,
       [field] : actionJSONPayload.actions[0].value
     })
 
-    const pathCallback = urljoin("localhost:3000", actionJSONPayload.callback_id);
+    const pathCallback = urljoin("http://localhost:3000", actionJSONPayload.callback_id);
     console.log('Hitting rails app at : ', pathCallback);
     request({
       uri: pathCallback,
@@ -118,7 +118,8 @@ bot.on('message', function(msgObject) {
       request.post({url: webhook, form: payload, headers: headers}, function(err, res){
           if(err){console.log(err)}
           if(res){console.log(res.body)}
-      })
+      });
+      
       break;
     }
     default:
