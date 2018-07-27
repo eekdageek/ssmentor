@@ -30,6 +30,7 @@ app.post('/respond', urlencodedParser,
   (req, res) => {
     const actionJSONPayload = JSON.parse(req.body.payload) // parse URL-encoded payload JSON string
     console.log(util.inspect(actionJSONPayload));
+    // update redux store
     appState.dispatch({
       type: ActionTypes.INTERACTION_RESPONDED,
       payload: {
@@ -38,6 +39,13 @@ app.post('/respond', urlencodedParser,
         slackResponse: actionJSONPayload.actions[0]
       }
     });
+    // notify rails app
+    fetch('localhost:3000/'+actionJSONPayload.callback_id, { 
+        method: 'PUT',
+        body:    JSON.stringify(actionJSONPayload.actions[0]),
+        headers: { 'Content-Type': 'application/json' },
+    });
+    // Respond to the client
     const message = {
         "text": "Your response has been recorded",
         "replace_original": true
