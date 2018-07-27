@@ -62,7 +62,7 @@ app.post('/debug', urlencodedParser, (req, res) => {
   res.json(surveyResponse);
 })
 
-// on /interaction/:username/:callbackUrl
+// on /interaction/:slackId
 app.route('/interaction/:slackId').post(
   (req, res) => {
     console.log("+ Params supplied: ", util.inspect(req.params));
