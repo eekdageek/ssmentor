@@ -39,7 +39,7 @@ app.post('/respond', urlencodedParser,
     const options = {
       hostname: 'localhost',
       port: 3000,
-      path: actionJSONPayload.callback_url),
+      path: actionJSONPayload.callback_url,
       method: 'PUT',
     };
     var request = http.request(options);
