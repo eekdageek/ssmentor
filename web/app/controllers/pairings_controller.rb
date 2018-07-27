@@ -20,8 +20,12 @@ class PairingsController < ApplicationController
   def checkin
     @pairing = Pairing.find(params[:id])
     @pairing.checkin!
+    redirect_to pairings_path
   end
 
   def survey
+    @pairing = Pairing.find(params[:id])
+    @pairing.survey!
+    redirect_to pairings_path
   end
 end
