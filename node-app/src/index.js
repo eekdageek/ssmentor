@@ -33,7 +33,7 @@ app.post('/respond', urlencodedParser,
     appState.dispatch({
       type: ActionTypes.INTERACTION_RESPONDED,
       payload: {
-        userName: actionJSONPayload.user.name,
+        user: actionJSONPayload.user.id,
         callbackUrl: actionJSONPayload.callback_id,
         slackResponse: actionJSONPayload.actions[0]
       }
@@ -50,12 +50,12 @@ app.post('/respond', urlencodedParser,
 
 // https://mentor.netlagoon.com/debug
 app.post('/debug', urlencodedParser, (req, res) => {
-  const userId = req.body.user_id;
+  const user = req.body.user_id;
   // survey goes here
   appState.dispatch({
     type: ActionTypes.ACTION_INTERACTION_INITIATED,
     payload: {
-      userId,
+      user,
       callbackUrl: surveyResponse.attachments.callback_id
     }
   });
@@ -65,25 +65,22 @@ app.post('/debug', urlencodedParser, (req, res) => {
 // on /interaction/:slackId
 app.post('/interaction/:slackId', urlencodedParser, 
   (req, res) => {
-    const slackId = req.params.slackId;
-
+    const user = req.params.slackId;
     const callbackUrl = req.body.callback_url;
     const messageText = "Have you had a chance to meet with your mentor since we last checked in?";
     const options = checkinResponse;
     options.attachments[0].callback_id = callbackUrl;
 
-    bot.postMessage(slackId, messageText, options).then(function(response) {
-      console.log('Response: ',util.inspect(response));
+    bot.postMessage(user, messageText, options).then(function(response) {
       appState.dispatch({
         type: ActionTypes.ACTION_INTERACTION_INITIATED,
         payload: {
-          slackId,
+          user,
           callbackUrl
         }
       });
       res.status(200).end();
     }).catch(function(ex) {
-      console.log(ex.message);  
       res.send('Error: ', ex.message);
     });
   }
