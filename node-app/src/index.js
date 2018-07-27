@@ -67,8 +67,10 @@ app.route('/interaction/:slackId').post(
   (req, res) => {
     console.log("+ Params supplied: ", util.inspect(req.params));
     console.log("+ Body supplied: ", util.inspect(req.body));
-    const userName = req.params.userName;
-    const callbackUrl = req.params.callbackUrl;
+    
+    const slackId = req.params.slackId;
+    const userName = bot.getUserById(slackId).name;
+    const callbackUrl = req.body.callbackUrl;
     const messageText = "Have you had a chance to meet with your mentor since we last checked in?";
     const options = checkinResponse;
     options.attachments[0].callback_id = callbackUrl;
