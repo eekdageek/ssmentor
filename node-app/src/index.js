@@ -36,7 +36,13 @@ app.post('/respond', urlencodedParser,
       [field] : actionJSONPayload.actions[0].value
     })
     var client = http.createClient(3000, 'localhost');
-    var request = client.request('PUT', actionJSONPayload.callback_url);
+    const options = {
+      hostname: 'localhost',
+      port: 3000,
+      path: actionJSONPayload.callback_url),
+      method: 'PUT',
+    };
+    var request = http.request(options);
     request.write(body);
     // Respond to the client
     const message = {
