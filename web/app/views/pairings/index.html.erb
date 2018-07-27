@@ -16,7 +16,7 @@
 	<td>
 		<% if c = p.checkins.last %>
 			<% if c.q1 %>
-				<%= c.q1 %>, <%= time_ago_in_words c.created_at %> ago
+				<%= c.q1.to_s.capitalize %>, <%= time_ago_in_words c.created_at %> ago
 			<% else %>
 				Checkin request sent <%= time_ago_in_words c.created_at %> ago
 			<% end %>
