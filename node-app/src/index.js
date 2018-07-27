@@ -11,6 +11,8 @@ import stateReducer from './state/reducer';
 import * as ActionTypes from './state/actions';
 import checkinResponse from './routes/menu_checkin';
 import surveyResponse from './routes/menu_survey';
+import dialogResponse from './routes/menu_dialog';
+
 
 // Create Express App
 const app = express();
@@ -61,27 +63,7 @@ app.post('/respond', urlencodedParser,
 // https://mentor.netlagoon.com/debug
 app.post('/debug', urlencodedParser, (req, res) => {
   const user = req.body.user_id;
-  surveyResponse = "{
-  "trigger_id": "13345224609.738474920.8088930838d88f008e0",
-  "dialog": {
-    "callback_id": "ryde-46e2b0",
-    "title": "Request a Ride",
-    "submit_label": "Request",
-    "notify_on_cancel": true,
-    "elements": [
-        {
-            "type": "text",
-            "label": "Pickup Location",
-            "name": "loc_origin"
-        },
-        {
-            "type": "text",
-            "label": "Dropoff Location",
-            "name": "loc_destination"
-        }
-    ]
-  }
-}"
+  surveyResponse = dialogResponse;
   // survey goes here
   appState.dispatch({
     type: ActionTypes.ACTION_INTERACTION_INITIATED,
