@@ -56,7 +56,7 @@ app.post('/debug', urlencodedParser, (req, res) => {
   const messageText = surveyResponse.text;
   const options = surveyResponse;
   options.attachments[0].callback_id = 'debug_command';
-  bot.postMessageToChannel(channelId, message.text, options).then(function(response) {
+  bot.postTo(channelId, "debug text", options).then(function(response) {
     res.status(200).end();
   })
 })
