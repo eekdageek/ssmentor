@@ -16,8 +16,7 @@ import surveyResponse from './routes/menu_survey';
 const app = express();
 const appState = createStore(stateReducer);
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
-const token = ;
-const slackApi = new WebClient(token);
+const slackApi = new WebClient(process.env.API_TOKEN);
 
 appState.subscribe(() =>
   console.log('** Store Update ** \n', JSON.stringify(appState.getState(), null, '\t'))
@@ -80,16 +79,15 @@ app.post('/interaction/:slackId', urlencodedParser,
     const options = checkinResponse;
     options.attachments[0].callback_id = callbackUrl;
     let userInfo;
-    // slackApi.makeAPICall('users.info', null /*no required args to this call*/, {
-    //   user: msgObject.user, //optional user param
-    //   include_labels: false //optional include_labels param, defaults to false
-    // }, function(err, info) {
-    //   //err is set if there was an error 
-    //   //otherwise info will be an object that contains the result of the call
-    //   if (!err) {
-    //     userInfo = info;
-    //   }
-    // });
+    slackApi.users.info({ user: user })
+    .then(resp => {
+      if (resp.user) {
+        userInfo= resp.user[0];
+      } else {
+        console.log('No matches found');
+      }
+    }).catch(console.error);
+    console.log('USERINFO\n',userInfo);
     bot.postMessage(user, messageText, options).then(function(response) {
       appState.dispatch({
         type: ActionTypes.ACTION_INTERACTION_INITIATED,
