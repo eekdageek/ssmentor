@@ -10,6 +10,9 @@
   </head>
 
   <body>
+    <p class="nav">
+      <%= link_to 'Participants', participants_path %> | <%= link_to 'Pairings', pairings_path %>
+    </p>
     <%= yield %>
   </body>
 </html>

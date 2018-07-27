@@ -14,6 +14,10 @@
  *= require_self
  */
 
+body {
+	font-family: sans-serif;
+}
+
 table {
 	border: 1px solid #ddd;
 }
@@ -22,3 +26,13 @@ td {
 	border: 1px dotted #ddd;
 	padding: 0.5em;
 }
+
+.nav {
+	background-color: #ddd;
+	padding: 0.5em;
+	a {
+		color: #369;
+	}
+}
+
+
