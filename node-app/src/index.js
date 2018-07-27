@@ -3,8 +3,8 @@ const Slackbot = require('slackbots');
 const util = require('util');
 const bodyParser = require('body-parser');
 const request = require("request");
-const  fs = require('fs');
 const { WebClient } = require('@slack/client');
+const urljoin = require('url-join');
 
 import { createStore } from 'redux';
 import stateReducer from './state/reducer';
@@ -38,7 +38,9 @@ app.post('/respond', urlencodedParser,
     const body = JSON.stringify({
       [field] : actionJSONPayload.actions[0].value
     })
-    const pathCallback = "localhost:3000/"+actionJSONPayload.callback_id;
+
+    const pathCallback = urljoin("http://localhost:3000", actionJSONPayload.callback_id);
+    console.log('Hitting rails app at : ', pathCallback);
     request({
       uri: pathCallback,
       method: "PUT",
@@ -105,10 +107,10 @@ app.post('/interaction/:slackId', urlencodedParser,
 bot.on('message', function(msgObject) {
   switch (msgObject.type) {
     case "message": {
+      console.log('Message received: \n\n', msgObject);
       if (msgObject.bot_id){
         return;
       }
-      console.log('Message received: \n\n', msgObject);
       // https://hooks.slack.com/services/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
       const webhook = "https://hooks.slack.com/services/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";
       var payload=JSON.stringify({"text":"Recieved message from "+msgObject.user+':\n'+msgObject.text});
@@ -116,7 +118,8 @@ bot.on('message', function(msgObject) {
       request.post({url: webhook, form: payload, headers: headers}, function(err, res){
           if(err){console.log(err)}
           if(res){console.log(res.body)}
-      })
+      });
+      
       break;
     }
     default:
