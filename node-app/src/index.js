@@ -49,7 +49,7 @@ app.post('/respond', urlencodedParser,
 );
 
 // https://mentor.netlagoon.com/debug
-app.post('/debug', urlencodedParserm (req, res) => {
+app.post('/debug', urlencodedParser, (req, res) => {
   const actionJSONPayload = JSON.parse(req.body.payload) // parse URL-encoded payload JSON string  
   // survey goes here
   const messageText = surveyResponse.text;
