@@ -2,7 +2,9 @@ const express = require('express');
 const Slackbot = require('slackbots');
 const util = require('util');
 const bodyParser = require('body-parser');
-var request = require("request");
+const request = require("request");
+const  fs = require('fs');
+const { WebClient } = require('@slack/client');
 
 import { createStore } from 'redux';
 import stateReducer from './state/reducer';
@@ -14,6 +16,8 @@ import surveyResponse from './routes/menu_survey';
 const app = express();
 const appState = createStore(stateReducer);
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
+const token = ;
+const webApi = new WebClient(token);
 
 appState.subscribe(() =>
   console.log('** Store Update ** \n', JSON.stringify(appState.getState(), null, '\t'))
@@ -75,7 +79,17 @@ app.post('/interaction/:slackId', urlencodedParser,
     const messageText = "Have you had a chance to meet with your mentor since we last checked in?";
     const options = checkinResponse;
     options.attachments[0].callback_id = callbackUrl;
-
+    let userInfo;
+    slackApi.makeAPICall('users.info', null /*no required args to this call*/, {
+      user: msgObject.user, //optional user param
+      include_labels: false //optional include_labels param, defaults to false
+    }, function(err, info) {
+      //err is set if there was an error 
+      //otherwise info will be an object that contains the result of the call
+      if (!err) {
+        userInfo = info;
+      }
+    });
     bot.postMessage(user, messageText, options).then(function(response) {
       appState.dispatch({
         type: ActionTypes.ACTION_INTERACTION_INITIATED,
@@ -95,7 +109,14 @@ bot.on('message', function(msgObject) {
   switch (msgObject.type) {
     case "message": {
       console.log('Message received: \n\n', msgObject);
-
+      // https://hooks.slack.com/services/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
+      const webhook = "https://hooks.slack.com/services/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";
+      var payload=JSON.stringify({"text":"Recieved message from "+msgObject.user+':\n'+msgObject.text});
+      var headers = {"Content-type": "application/json"};      
+      request.post({url: webhook, form: payload, headers: headers}, function(err, res){
+          if(err){console.log(err)}
+          if(res){console.log(res.body)}
+      })
       break;
     }
     default:
