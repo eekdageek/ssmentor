@@ -82,13 +82,13 @@ app.post('/interaction/:slackId', urlencodedParser,
     slackApi.users.info({ user: user })
     .then(resp => {
       if (resp.user) {
-        userInfo= resp.user[0];
+        userInfo= resp.user;
       } else {
         console.log('No matches found');
       }
     }).catch(console.error);
     console.log('USERINFO\n',userInfo);
-    bot.postMessage(user, messageText, options).then(function(response) {
+    bot.postMessageToUser(userInfo.name, messageText, options).then(function(response) {
       appState.dispatch({
         type: ActionTypes.ACTION_INTERACTION_INITIATED,
         payload: {
