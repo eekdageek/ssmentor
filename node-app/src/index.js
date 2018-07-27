@@ -34,8 +34,7 @@ app.post('/respond', urlencodedParser,
     const field = actionJSONPayload.actions[0].name;
     const bodyString = '{"'+field+'":"'+actionJSONPayload.actions[0].value+'"}';
     var headers = {
-        'Content-Type': 'application/json',
-        'Content-Length': bodyString.length
+      'content-type': 'application/json'
     };  
     var options = {
       host: 'localhost',
@@ -44,6 +43,7 @@ app.post('/respond', urlencodedParser,
       method: 'PUT',
       headers
     };
+    console.log('Request options \n',options);
     const callback = function(response) {
       let str = '';
       //another chunk of data has been recieved, so append it to `str`
